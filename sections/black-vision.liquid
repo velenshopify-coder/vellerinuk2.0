@@ -1,0 +1,634 @@
+{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
+      {%- assign button_background = settings.primary_button_background -%}
+    {%- else -%}
+      {%- assign button_background = section.settings.button_background -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign button_text_color = settings.primary_button_text_color -%}
+    {%- else -%}
+      {%- assign button_text_color = section.settings.button_text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
+    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
+
+    --prev-next-button-background: {{ settings.background.red }}, {{ settings.background.green }}, {{ settings.background.blue }};
+    --prev-next-button-color: {{ settings.text_color.red }}, {{ settings.text_color.green }}, {{ settings.text_color.blue }};
+
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    --section-products-per-row: 2;
+  }
+
+  @media screen and (min-width: 741px) {
+    #shopify-section-{{ section.id }} {
+      --section-products-per-row: {{ section.settings.products_per_row | at_most: 3 }};
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} {
+      --section-products-per-row: {{ section.settings.products_per_row | at_most: 4 }};
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      --section-products-per-row: {{ section.settings.products_per_row }};
+    }
+  }
+
+</style>
+
+<style>
+  :root{
+    --countdown_background    : {{ section.settings.cronometro_background }};
+    --countdown_timer_color    : {{ section.settings.cronometro_fonte }};
+    --countdown_desc_color    : {{ section.settings.cronometro_textos }};
+    --countdown_frase_cor    : {{ section.settings.cronometro_frase_cor }};
+    --countdown_frase    : {{ section.settings.cronometro_frase_fonte }}px;
+     --countdown_frase_mobile    : {{ section.settings.cronometro_frase_fonte_mobile }}px;
+     --countdown_mim   : {{ section.settings.cronometro_frase_mim }}px;
+    --countdown_mid   : {{ section.settings.cronometro_frase_mid }}px;
+
+
+--titulo_frase_fonte    : {{ section.settings.titulo_frase_fonte }}px;
+--titulo_frase_fontem    : {{ section.settings.titulo_frase_fontem }}px;
+    
+  }
+</style>
+
+
+<section  class="section {% unless blends_with_background %}section--flush{% endunless %}">
+  <div class="section__color-wrapper">
+    <div class="container {% unless blends_with_background %}vertical-breather{% endunless %}">
+      {%- if section.blocks.size > 1 or section.settings.title != blank or section.settings.cronometro_frase != blank or section.settings.subheading != blank or section.settings.content != blank -%}
+        <header class="section__header {% if section.settings.content != blank %}section__header--tight{% endif %}">
+          {%- if section.settings.title != blank or section.settings.subheading != blank or section.settings.cronometro_frase != blank  or  section.settings.content != blank -%}
+            <div class="text-container">
+                            {%- if section.settings.title != blank -%}
+                <h3 class="squenta">{{ section.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- if section.settings.content != blank -%}
+                {{- section.settings.content -}}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+
+<style>
+
+
+  
+ @media only screen and (max-width: 767px){
+   .squenta{
+   font-size: var(--titulo_frase_fontem) !important;
+   }
+ }
+
+ @media only screen and (min-width: 767px){
+   .squenta{
+   font-size: var(--titulo_frase_fonte) !important;
+   
+ }
+ }
+
+h3.squenta {
+    margin-bottom: 10px !important;
+}
+  
+.countdown-ofertas{
+    margin:0 auto;
+    margin-bottom: var(--countdown_mid);
+    text-align:center
+}
+
+ @media only screen and (max-width: 767px){
+   .countdown-ofertas{
+   margin-bottom: var(--countdown_mim) !important;
+   margin:0 auto;
+   text-align:center
+   }
+ } 
+
+  
+.countdown-ofertas .texto-ofertas{
+    display:inline-block;
+    margin-right:10px;
+    text-align:center;
+    vertical-align:middle;
+    max-width:600px;
+    overflow:hidden;
+    white-space:pre;
+    text-overflow:ellipsis
+}
+.countdown-ofertas .texto-ofertas span{
+    font-size:var(--countdown_frase);
+    color:var(--countdown_frase_cor);
+    font-weight: 600;
+}
+.countdown-ofertas ul{
+    margin:0 auto;
+    padding:0;
+    display:inline-block;
+    text-align:center;
+    vertical-align:middle
+}
+.countdown-ofertas ul li{
+    line-height:20px;
+    display:inline-block;
+    width:59px;
+    text-align:center;
+    margin:0 2px;
+    padding:12px 0;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    box-shadow:0 3px 6px #64646430;
+    background-color:var(--countdown_background)
+}
+.countdown-dias{
+    margin-right:8px!important
+}
+.countdown-ofertas .tempo-a{
+    display:contents;
+    font-size:25px;
+    font-weight:700;
+    width:30px;
+    text-align:center;
+    color:var(--countdown_timer_color)
+}
+.countdown-ofertas .tempo-b{
+    display:block;
+    font-size:13px;
+    line-height:13px;
+    color:var(--countdown_desc_color)
+}
+.countdown-ofertas ul>strong{
+    display:inline-block;
+    position:relative;
+    top:-10px;
+    font-size:25px;
+    font-weight:700
+}
+.countdown-ofertas .link{
+    display:block;
+    text-align:right;
+    margin-top:10px
+}
+@media only screen and (max-width: 767px){
+    .countdown-ofertas .texto-ofertas{
+        max-width:inherit;
+        white-space:inherit;
+        margin:0
+    }
+    .countdown-ofertas .texto-ofertas{
+        margin-bottom:10px
+    }
+    .countdown-ofertas .texto-ofertas span{
+        font-size:var(--countdown_frase_mobile);
+        line-height:21px
+    }
+    .countdown-ofertas ul li{
+        width:45px;
+        padding:9px 0
+    }
+}
+.ofertas-destaque{
+    text-align:center;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    font-size:14px;
+    padding:3px 0;
+    margin-top:10px;
+    background-color:var(--special_offer_background);
+    cursor:pointer
+}
+.ofertas-destaque i{
+    margin-right:5px;
+    color:var(--special_offer_star_color)
+}
+.ofertas-destaque strong{
+    font-weight:700;
+    color:#fff;
+    color:var(--special_offer_color)
+}
+  
+</style>
+
+
+<div id="sumiraozerar" class="countdown-ofertas">
+        <div class="texto-ofertas">
+          <span>{{ section.settings.cronometro_frase }}</span>
+        </div>
+
+        <ul class="block-{{ section.id }}-{{ block.id }}-countdown-ofertas">
+    <li>
+        <span id="block-{{ section.id }}-{{ block.id }}-dias" class="tempo-a"></span>
+        <span class="tempo-b">dias</span>
+    </li>
+
+    <li>
+        <span id="block-{{ section.id }}-{{ block.id }}-hrs" class="tempo-a"></span>
+        <span class="tempo-b">hrs</span>
+    </li>
+
+    <strong>:</strong>
+
+    <li>
+        <span id="block-{{ section.id }}-{{ block.id }}-min" class="tempo-a" style=""></span>
+        <span class="tempo-b">min</span>
+    </li>
+
+    <strong>:</strong>
+
+    <li>
+        <span id="block-{{ section.id }}-{{ block.id }}-seg" class="tempo-a"></span>
+        <span class="tempo-b" style="">seg</span>
+    </li>
+</ul>
+
+
+<script>
+      const datafinal = ('{{ section.settings.cronometro_termino }}')
+        </script>
+  
+<script>
+    function start() {
+        var tempo = new Date(datafinal).getTime() + (27 * 60 * 60 * 1000) - 500; // Adiciona 3 horas e subtrai 0.5 segundo
+
+        var c = setInterval(function () {
+            var agora = new Date().getTime();
+            var distancia = tempo - agora;
+            
+            var dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            var hrs = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var min = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            var seg = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById('block-{{ section.id }}-{{ block.id }}' + '-dias').innerHTML = dias;
+            document.getElementById('block-{{ section.id }}-{{ block.id }}' + '-hrs').innerHTML = hrs;
+            document.getElementById('block-{{ section.id }}-{{ block.id }}' + '-min').innerHTML = min;
+            document.getElementById('block-{{ section.id }}-{{ block.id }}' + '-seg').innerHTML = seg;
+
+            if (distancia <= 0) {
+                clearInterval(c);
+                document.getElementById('sumiraozerar').style.display = "none";
+            }
+        }, 0);
+    }
+
+    document.addEventListener('shopify:section:load', function () {
+        start();
+    });
+    start();
+</script>
+
+
+
+
+      </div>
+
+
+
+
+
+
+          
+
+          {%- if section.blocks.size > 1 -%}
+            <tabs-nav class="tabs-nav tabs-nav--center tabs-nav--edge2edge">
+              <scrollable-content class="tabs-nav__scroller hide-scrollbar">
+                <div class="tabs-nav__scroller-inner">
+                  <div class="tabs-nav__item-list">
+                    {%- for block in section.blocks -%}
+                      {%- capture on_boarding_title -%}{{ 'general.onboarding.collection_title' | t }} {{ forloop.index }}{%- endcapture -%}
+
+                      <button type="button" class="tabs-nav__item heading heading--small" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="block-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+                        {{- block.settings.label | default: block.settings.collection.title | default: on_boarding_title -}}
+                      </button>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              </scrollable-content>
+            </tabs-nav>
+          {%- endif -%}
+        </header>
+      {%- endif -%}
+
+      <div class="featured-collections">
+        {%- for block in section.blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- assign smallest_image_aspect_ratio = 0 -%}
+
+          <product-list {% if settings.stagger_products_apparition %}stagger-apparition{% endif %} {% unless forloop.first %}hidden{% endunless %} id="block-{{ section.id }}-{{ block.id }}" class="product-list product-list--center">
+            <div {% unless section.settings.stack_products %}class="scroller"{% endunless %}>
+              <div class="product-list__inner {% unless section.settings.stack_products %}product-list__inner--scroller hide-scrollbar{% endunless %}">
+                {%- assign number_of_products_minus_one = section.settings.products_per_row | minus: 1 -%}
+                {%- assign gap_width = 24.0 | divided_by: section.settings.products_per_row | times: number_of_products_minus_one -%}
+                {%- capture sizes_attribute -%}(max-width: 740px) 52vw, calc(min(100vw - 80px, 1520px) / {{ section.settings.products_per_row }} - {{ gap_width | ceil }}px){%- endcapture -%}
+
+                {%- for product in collection.products limit: section.settings.products_count -%}
+                  {%- if product.featured_media -%}
+                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio -%}
+                  {%- endif -%}
+
+                  {%- render 'product-item', product: product, collection: collection, show_cta: section.settings.show_cta, block: block, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
+                {%- else -%}
+                  {%- assign smallest_image_aspect_ratio = 1 -%}
+
+                  {%- for i in (1..section.settings.products_count) -%}
+                    {%- capture product_image -%}product-{% cycle '1', '2', '3', '4', '5' %}{% endcapture %}
+                    {%- render 'product-item-placeholder', product_image: product_image, show_cta: section.settings.show_cta, reveal: settings.stagger_products_apparition -%}
+                  {%- endfor -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+            {%- unless section.settings.stack_products -%}
+              {%- if collection.products_count == 0 -%}
+                {%- assign products_shown = section.settings.products_count -%}
+              {%- else -%}
+                {%- assign products_shown = collection.products_count | default: section.settings.products_count | at_most: section.settings.products_count -%}
+              {%- endif -%}
+
+              {%- if products_shown > section.settings.products_per_row -%}
+                {%- if smallest_image_aspect_ratio == 0 -%}
+                  {%- assign smallest_image_aspect_ratio = 1 -%}
+                {%- endif -%}
+
+                <prev-next-buttons class="product-list__prev-next hidden-pocket" style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio }}">
+                  <button class="product-list__arrow prev-next-button prev-next-button--prev" disabled>
+                    <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
+                    {%- include 'icon' with 'nav-arrow-left', block: true, direction_aware: true -%}
+                  </button>
+
+                  <button class="product-list__arrow prev-next-button prev-next-button--next">
+                    <span class="visually-hidden">{{ 'general.accessibility.next' | t }}</span>
+                    {%- include 'icon' with 'nav-arrow-right', block: true, direction_aware: true -%}
+                  </button>
+                </prev-next-buttons>
+              {%- endif -%}
+            {%- endunless -%}
+
+            {%- if block.settings.button_text != blank -%}
+              <div class="section__footer">
+                <a class="button button--primary" href="{{ block.settings.button_url | default: collection.url }}"style="padding-left: 15px;padding-right: 15px;height: 32px!important;line-height: 28px;font-size: calc(var(--base-font-size) - 5px);letter-spacing: 2px;">{{ block.settings.button_text }}</a>
+              </div>
+            {%- endif -%}
+          </product-list>
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coleção com cronometro",
+  "class": "shopify-section--featured-collections",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Coleção",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Coleção"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Rótulo da aba",
+          "info": "Exibido quando mais de uma coleção está em destaque. O título da coleção é usado se nenhum rótulo for definido."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto do botão"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Link do botão",
+          "info": "Se vazio, a URL da coleção será usada."
+        }
+      ]
+    }
+  ],
+  "settings": [
+      {
+        "type": "header",
+        "content": "ATENÇÃO."
+      },
+     {
+        "type": "paragraph",
+        "content": "APENAS UMA DATA PODE SER CONFIGURADA PARA ESSA SEÇÃO, PORTANTO SE FOR USAR MAIS QUE UM BLOCO DESSA SEÇÃO, APENAS O DIA DA PRIMEIRA SEÇÃO SERÁ USADO PELO SCRIPT"
+      },
+    {
+        "type": "text",
+        "id": "cronometro_termino",
+        "label": "Dia final Cronometro",
+        "info": "Coloque a data final do cronômetro na configuração ANO-MES-DIA (AAAA-MM-DD) conforme o exemplo: 2023-08-31. OBS: Salve para visualizar as alterações de data no cronômetro",
+        "default": "2023-08-31"
+      },
+    {
+        "type": "text",
+        "id": "cronometro_frase",
+        "label": "Frase Cronometro",
+        "default": "ESSAS OFERTAS ACABAM EM:"
+      },
+    {
+        "type": "range",
+        "id": "cronometro_frase_fonte",
+        "label": "Fonte da Frase Desktop",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 18
+      },
+    {
+        "type": "range",
+        "id": "cronometro_frase_fonte_mobile",
+        "label": "Fonte da Frase Mobile",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 16
+      },
+     {
+        "type": "range",
+        "id": "cronometro_frase_mid",
+        "label": "Margem inferior Desktop",
+        "min": -50,
+        "max": 50,
+        "step": 1,
+        "default": 0
+      },
+    
+     {
+        "type": "range",
+        "id": "cronometro_frase_mim",
+        "label": "Margem inferior Mobile",
+        "min": -50,
+        "max": 50,
+        "step": 1,
+        "default": 0
+      },
+    {
+        "type": "color",
+        "id": "cronometro_frase_cor",
+        "label": "Cor da fonte da Frase",
+        "default": "#000"
+      },
+   {
+        "type": "color",
+        "id": "cronometro_background",
+        "label": "Background Cronometro",
+        "default": "#000"
+      },
+     {
+        "type": "color",
+        "id": "cronometro_fonte",
+        "label": "Fonte dos números",
+        "default": "#fff"
+      } ,
+     {
+        "type": "color",
+        "id": "cronometro_textos",
+        "label": "Dias, horas, min, seg",
+        "default": "#00ffe1"
+      }, 
+    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Coleção"
+    },
+    {
+        "type": "range",
+        "id": "titulo_frase_fonte",
+        "label": "Fonte do título Desktop",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 22
+      },
+    {
+        "type": "range",
+        "id": "titulo_frase_fontem",
+        "label": "Fonte do título mobile",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 18
+      },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Conteúdo"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Produtos para mostrar",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Produtos por linha (desktop)",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_products",
+      "label": "Empilhar produtos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Mostrar adicionar ao carrinho abaixo das informações",
+      "info": "Se ativado, recomendamos usar no máximo 4 produtos por linha.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Fundo",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texto",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Fundo do botão",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Texto do botão",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coleção com cronometro",
+      "blocks": [
+        {
+          "type": "collection"
+        }
+      ],
+      "settings": {}
+    }
+  ]
+}
+
+{% endschema %}
